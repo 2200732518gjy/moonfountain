@@ -10,7 +10,14 @@ fn character_parts(cue : String) -> (String, String) {
 ///|
 fn is_character(text : String) -> Bool {
   if text.has_prefix("@") {
-    return stripped(text[1:].to_owned()) != ""
+    let forced = stripped(text[1:].to_owned())
+    let cue = if forced.has_suffix("^") {
+      stripped(forced[:forced.length() - 1].to_owned())
+    } else {
+      forced
+    }
+    let (name, _) = character_parts(cue)
+    return name != ""
   }
   if text.has_suffix("TO:") {
     return false

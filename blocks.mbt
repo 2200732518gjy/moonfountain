@@ -29,7 +29,11 @@ fn special_block(
   if text.has_prefix(">") {
     return Some(element(line, Transition, stripped(text[1:].to_owned())))
   }
-  if before && after && text.has_suffix("TO:") && text == text.to_upper() {
+  if before &&
+    after &&
+    text.has_suffix("TO:") &&
+    line.content().has_suffix("TO:") &&
+    text == text.to_upper() {
     return Some(element(line, Transition, text))
   }
   None

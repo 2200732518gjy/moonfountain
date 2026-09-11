@@ -10,6 +10,10 @@ fn parse_unchecked(source : String) -> Document {
     let line = lines[i]
     let text = stripped(line.content())
     if text == "" {
+      if in_dialogue && source[line.start:line.end] == "  " {
+        elements.push(element(line, Dialogue, ""))
+        continue
+      }
       in_dialogue = false
       continue
     }
