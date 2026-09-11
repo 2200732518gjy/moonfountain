@@ -6,11 +6,53 @@ import {
 }
 
 // Values
+pub fn parse(String) -> Document
+
 pub fn source_lines(String) -> Array[SourceLine]
 
 // Errors
 
 // Types and methods
+pub(all) struct Diagnostic {
+  code : String
+  line : Int
+  message : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Document {
+  source : String
+  elements : Array[Element]
+  diagnostics : Array[Diagnostic]
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Element {
+  kind : Kind
+  text : String
+  line : Int
+  start : Int
+  end : Int
+  detail : String
+  level : Int
+  dual : Bool
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum Kind {
+  Action
+  SceneHeading
+  Character
+  Dialogue
+  Parenthetical
+  Transition
+  Centered
+  Lyric
+  Section
+  Synopsis
+  PageBreak
+  Note
+  Boneyard
+  TitleField
+} derive(Eq, ToJson, @debug.Debug)
+
 pub(all) struct SourceLine {
   number : Int
   start : Int
