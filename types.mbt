@@ -40,6 +40,7 @@ pub(all) struct Document {
   source : String
   elements : Array[Element]
   diagnostics : Array[Diagnostic]
+  annotations : Array[Element]
 } derive(Eq, Debug, ToJson)
 
 ///|

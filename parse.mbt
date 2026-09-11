@@ -1,7 +1,8 @@
 ///|
 /// Parse a bounded Fountain block grammar. Original input is always retained.
 pub fn parse(source : String) -> Document {
-  let lines = source_lines(source)
+  let (visible, annotations, diagnostics) = mask_annotations(source)
+  let lines = source_lines(visible)
   let elements : Array[Element] = []
   let body_start = parse_title(lines, elements)
   let mut in_dialogue = false
@@ -47,7 +48,7 @@ pub fn parse(source : String) -> Document {
       elements.push(element(line, Action, line.content()))
     }
   }
-  { source, elements, diagnostics: [] }
+  { source, elements, diagnostics, annotations }
 }
 
 ///|
