@@ -14,6 +14,10 @@ pub fn cue_text(Document, String) -> String
 
 pub fn dual_pairs(Document) -> Array[DualPair]
 
+pub fn escape_html(String) -> String
+
+pub fn inline_html(String) -> String
+
 pub fn inline_text(String) -> Array[Inline]
 
 pub fn lint(Document) -> Array[Diagnostic]
@@ -21,6 +25,8 @@ pub fn lint(Document) -> Array[Diagnostic]
 pub fn parse(String) -> Document
 
 pub fn plain_text(String) -> String
+
+pub fn render_html(Document, outline? : Bool) -> String
 
 pub fn scene_at_line(Array[Scene], Int) -> Int
 
