@@ -16,6 +16,8 @@ pub fn dual_pairs(Document) -> Array[DualPair]
 
 pub fn inline_text(String) -> Array[Inline]
 
+pub fn lint(Document) -> Array[Diagnostic]
+
 pub fn parse(String) -> Document
 
 pub fn plain_text(String) -> String
@@ -60,6 +62,7 @@ pub(all) struct Diagnostic {
   line : Int
   message : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Diagnostic::format(Self) -> String
 
 pub(all) struct Document {
   source : String
