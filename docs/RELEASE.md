@@ -16,4 +16,6 @@
 - Remind the participant to publish the package to MoonCakes manually. The builder
   workflow does not execute that separate external publication.
 
-Until those checks run, CHANGELOG remains unreleased and no green badge is added.
+The initial public four-target CI passed on 2026-09-11; see CI.md.
+For each release, verify the exact final tag commit and its CI, not only a prior run.
+Personal application data and MoonCakes publication are separate remaining gates.

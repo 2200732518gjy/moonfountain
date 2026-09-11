@@ -28,8 +28,8 @@ node _build/js/release/build/cmd/moonfountain/moonfountain.js cues examples/last
 `scenes` 应输出两场：SIGNAL ROOM / PLATFORM；`cues ... 林` 输出三次出场，
 第二场不错误沿用上一场的触发台词。嵌入式示例包含断言，跨目标复现相同语义。
 
-**发布状态：本地 0.1.0 候选版本，尚未发布 MoonCakes。** 因此不提供假定可用的
-`moon add` 命令。当前安装/评估方式是取得本仓库源码后运行上述命令；公开仓库已获授权创建；托管 CI 和 Release 尚待推送后单独核验，不使用虚假徽章。
+**版本：0.1.0，公开源码；尚未发布 MoonCakes。** 因此不提供假定可用的
+`moon add` 命令。当前安装/评估方式是取得本仓库源码后运行上述命令；公开源码已经推送，四目标托管 CI 已通过，见下方可核验的运行证据。
 
 ## 核心能力
 
@@ -90,7 +90,9 @@ python scripts/verify.py --native-check-only
 ```
 
 本地验证：46 项单元测试分别在 wasm-gc / wasm / JS 通过，25 个真实 CLI 用例通过；
-四目标严格检查通过。native 的本地构建/测试未通过环境准备，待 Ubuntu CI 证明。
+四目标严格检查通过。native 未在 Windows 本机执行，但已在 Ubuntu CI 中完成构建、
+46 项测试与示例运行。首个通过的 [四目标 CI 运行](https://github.com/2200732518gjy/moonfountain/actions/runs/34613640264)
+对应提交 `5ef0b00`；后续运行可在仓库 Actions 页面核对。
 [CI 合约](docs/CI.md) 说明命令、工具链、校验和与不可混淆的证据边界。
 
 ## 支持边界与安全

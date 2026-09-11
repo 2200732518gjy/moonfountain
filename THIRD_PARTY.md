@@ -33,6 +33,6 @@ bundled. The repository's original code is licensed under MIT (LICENSE).
 | MoonBit toolchain | Compile/test/format | Distributed separately by its publisher; toolchain terms are not replaced by project MIT |
 
 Distributing compiled bundles may incorporate runtime code and require preserving
-its notices; this local candidate distributes source only. Review exact runtime
+its notices; this release distributes source only. Review exact runtime
 licenses/notices before attaching binaries to any Release. Package publication
 and hosting are not implied by this dependency inventory.

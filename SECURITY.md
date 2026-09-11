@@ -18,7 +18,7 @@ only stdout/stderr. Static HTML escapes all user text and uses no remote assets.
 - Dependencies are MoonBit core and Node's built-ins. Keep toolchains maintained;
   see THIRD_PARTY.md and CI.md for the installer trust boundary.
 
-No private vulnerability reporting channel is established in this unpublished
-local candidate. Do not put secrets into a future public issue. Contact the
+No private vulnerability reporting channel is established for this
+project as of 2026-09-11. Do not put secrets into a public issue. Contact the
 maintainer through an already agreed private channel before sharing exploit data;
 after publication, enable GitHub private vulnerability reporting before advertising it.
