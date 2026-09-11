@@ -4,16 +4,25 @@ pub fn parse(source : String) -> Document {
   let lines = source_lines(source)
   let elements : Array[Element] = []
   let body_start = parse_title(lines, elements)
+  let mut in_dialogue = false
   for i = body_start; i < lines.length(); i = i + 1 {
     let line = lines[i]
     let text = stripped(line.content())
     if text == "" {
+      in_dialogue = false
       continue
     }
     let before = i == 0 || stripped(lines[i - 1].content()) == ""
     let after = i + 1 == lines.length() ||
       stripped(lines[i + 1].content()) == ""
-    if text.has_prefix("!") {
+    if in_dialogue {
+      let kind = if text.has_prefix("(") && text.has_suffix(")") {
+        Parenthetical
+      } else {
+        Dialogue
+      }
+      elements.push(element(line, kind, text))
+    } else if text.has_prefix("!") {
       elements.push(element(line, Action, text[1:].to_owned()))
     } else if before && after && is_scene(text) {
       let heading = if text.has_prefix(".") {
@@ -23,6 +32,15 @@ pub fn parse(source : String) -> Document {
       }
       let (body, number) = scene_number(heading)
       elements.push(element(line, SceneHeading, body, detail=number))
+    } else if before && !after && is_character(text) {
+      let cue = if text.has_prefix("@") {
+        stripped(text[1:].to_owned())
+      } else {
+        text
+      }
+      let (name, extension) = character_parts(cue)
+      elements.push(element(line, Character, name, detail=extension))
+      in_dialogue = true
     } else {
       elements.push(element(line, Action, line.content()))
     }

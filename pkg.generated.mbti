@@ -12,6 +12,8 @@ pub fn source_lines(String) -> Array[SourceLine]
 
 pub fn title_values(Document, String) -> Array[String]
 
+pub fn turns(Document) -> Array[Turn]
+
 // Errors
 
 // Types and methods
@@ -63,6 +65,16 @@ pub(all) struct SourceLine {
   text : String
 } derive(Eq, ToJson, @debug.Debug)
 pub fn SourceLine::content(Self) -> String
+
+pub(all) struct Turn {
+  character : String
+  extension : String
+  line : Int
+  end_line : Int
+  dialogue : Array[String]
+  directions : Array[String]
+  dual : Bool
+} derive(Eq, ToJson, @debug.Debug)
 
 // Type aliases
 
