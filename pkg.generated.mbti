@@ -28,7 +28,11 @@ pub fn plain_text(String) -> String
 
 pub fn render_html(Document, outline? : Bool) -> String
 
+pub fn report_json(Document, include_source? : Bool) -> Json
+
 pub fn scene_at_line(Array[Scene], Int) -> Int
+
+pub fn scene_text(Document) -> String
 
 pub fn scenes(Document) -> Array[Scene]
 
@@ -116,6 +120,7 @@ pub(all) enum Kind {
   Boneyard
   TitleField
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Kind::label(Self) -> String
 
 pub(all) struct Scene {
   ordinal : Int
