@@ -15,7 +15,12 @@ fn is_character(text : String) -> Bool {
   if text.has_suffix("TO:") {
     return false
   }
-  let (name, _) = character_parts(text)
+  let cue = if text.has_suffix("^") {
+    stripped(text[:text.length() - 1].to_owned())
+  } else {
+    text
+  }
+  let (name, _) = character_parts(cue)
   name != "" &&
   name == name.to_upper() &&
   name.to_array().any(fn(c) { c >= 'A' && c <= 'Z' })
@@ -69,6 +74,42 @@ pub fn turns(doc : Document) -> Array[Turn] {
       dual: e.dual,
     })
     i = j
+  }
+  out
+}
+
+///|
+/// Walk only the preceding turn; action/headings/outline break pairing.
+fn can_pair_dual(elements : Array[Element]) -> Bool {
+  let mut i = elements.length() - 1
+  let mut spoken = false
+  while i >= 0 {
+    let e = elements[i]
+    match e.kind {
+      Dialogue => spoken = true
+      Parenthetical => ()
+      Character => return spoken && !e.dual
+      _ => return false
+    }
+    i -= 1
+  }
+  false
+}
+
+///|
+pub(all) struct DualPair {
+  left : Turn
+  right : Turn
+} derive(Eq, Debug, ToJson)
+
+///|
+pub fn dual_pairs(doc : Document) -> Array[DualPair] {
+  let ts = turns(doc)
+  let out : Array[DualPair] = []
+  for i = 1; i < ts.length(); i = i + 1 {
+    if ts[i].dual {
+      out.push({ left: ts[i - 1], right: ts[i] })
+    }
   }
   out
 }

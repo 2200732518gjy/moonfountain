@@ -41,8 +41,22 @@ pub fn parse(source : String) -> Document {
       } else {
         text
       }
-      let (name, extension) = character_parts(cue)
-      elements.push(element(line, Character, name, detail=extension))
+      let requested_dual = cue.has_suffix("^")
+      let clean_cue = if requested_dual {
+        stripped(cue[:cue.length() - 1].to_owned())
+      } else {
+        cue
+      }
+      let (name, extension) = character_parts(clean_cue)
+      let dual = requested_dual && can_pair_dual(elements)
+      if requested_dual && !dual {
+        diagnostics.push({
+          code: "FNT003",
+          line: line.number,
+          message: "Dual dialogue requires an adjacent preceding ordinary dialogue turn",
+        })
+      }
+      elements.push(element(line, Character, name, detail=extension, dual~))
       in_dialogue = true
     } else {
       elements.push(element(line, Action, line.content()))

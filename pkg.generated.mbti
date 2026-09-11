@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn dual_pairs(Document) -> Array[DualPair]
+
 pub fn parse(String) -> Document
 
 pub fn source_lines(String) -> Array[SourceLine]
@@ -28,6 +30,11 @@ pub(all) struct Document {
   elements : Array[Element]
   diagnostics : Array[Diagnostic]
   annotations : Array[Element]
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct DualPair {
+  left : Turn
+  right : Turn
 } derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct Element {
