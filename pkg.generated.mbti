@@ -1,0 +1,26 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "2200732518gjy/moonfountain"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn source_lines(String) -> Array[SourceLine]
+
+// Errors
+
+// Types and methods
+pub(all) struct SourceLine {
+  number : Int
+  start : Int
+  end : Int
+  next : Int
+  text : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn SourceLine::content(Self) -> String
+
+// Type aliases
+
+// Traits
+
