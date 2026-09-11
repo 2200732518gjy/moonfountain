@@ -1,0 +1,8 @@
+import {
+  "2200732518gjy/moonfountain" @fountain,
+  "moonbitlang/core/env",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")

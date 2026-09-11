@@ -8,6 +8,8 @@ import {
 // Values
 pub fn cast(Document) -> Array[CastMember]
 
+pub fn command(String, String, argument? : String) -> CommandResult
+
 pub fn cue_sheet(Document, String) -> Array[Cue]
 
 pub fn cue_text(Document, String) -> String
@@ -42,6 +44,8 @@ pub fn title_values(Document, String) -> Array[String]
 
 pub fn turns(Document) -> Array[Turn]
 
+pub fn usage() -> String
+
 pub fn word_count(String) -> Int
 
 // Errors
@@ -54,6 +58,12 @@ pub(all) struct CastMember {
   turns : Int
   spoken_lines : Int
   words : Int
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct CommandResult {
+  status : Int
+  stdout : String
+  stderr : String
 } derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct Cue {
