@@ -3,7 +3,8 @@
 pub fn parse(source : String) -> Document {
   let lines = source_lines(source)
   let elements : Array[Element] = []
-  for i = 0; i < lines.length(); i = i + 1 {
+  let body_start = parse_title(lines, elements)
+  for i = body_start; i < lines.length(); i = i + 1 {
     let line = lines[i]
     let text = stripped(line.content())
     if text == "" {

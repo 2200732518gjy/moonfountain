@@ -10,6 +10,8 @@ pub fn parse(String) -> Document
 
 pub fn source_lines(String) -> Array[SourceLine]
 
+pub fn title_values(Document, String) -> Array[String]
+
 // Errors
 
 // Types and methods
