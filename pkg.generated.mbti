@@ -14,6 +14,10 @@ pub fn parse(String) -> Document
 
 pub fn plain_text(String) -> String
 
+pub fn scene_at_line(Array[Scene], Int) -> Int
+
+pub fn scenes(Document) -> Array[Scene]
+
 pub fn source_lines(String) -> Array[SourceLine]
 
 pub fn title_values(Document, String) -> Array[String]
@@ -74,6 +78,18 @@ pub(all) enum Kind {
   Note
   Boneyard
   TitleField
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Scene {
+  ordinal : Int
+  number : String
+  heading : String
+  line : Int
+  end_line : Int
+  start : Int
+  end : Int
+  characters : Array[String]
+  dialogue_lines : Int
 } derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct SourceLine {
