@@ -85,6 +85,7 @@ pub(all) struct Cue {
   simultaneous : Bool
   dialogue : Array[String]
   directions : Array[String]
+  parts : Array[SpeechPart]
 } derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct Diagnostic {
@@ -170,6 +171,12 @@ pub(all) struct SourceLine {
 } derive(Eq, ToJson, @debug.Debug)
 pub fn SourceLine::content(Self) -> String
 
+pub(all) struct SpeechPart {
+  text : String
+  direction : Bool
+  line : Int
+} derive(Eq, ToJson, @debug.Debug)
+
 pub(all) struct Turn {
   character : String
   extension : String
@@ -177,6 +184,7 @@ pub(all) struct Turn {
   end_line : Int
   dialogue : Array[String]
   directions : Array[String]
+  parts : Array[SpeechPart]
   dual : Bool
 } derive(Eq, ToJson, @debug.Debug)
 

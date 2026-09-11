@@ -8,6 +8,7 @@ pub(all) struct Cue {
   simultaneous : Bool
   dialogue : Array[String]
   directions : Array[String]
+  parts : Array[SpeechPart]
 } derive(Eq, Debug, ToJson)
 
 ///|
@@ -43,6 +44,7 @@ pub fn cue_sheet(doc : Document, character : String) -> Array[Cue] {
       simultaneous: turn.dual || (i + 1 < ts.length() && ts[i + 1].dual),
       dialogue: turn.dialogue.copy(),
       directions: turn.directions.copy(),
+      parts: turn.parts.copy(),
     })
   }
   out
@@ -66,11 +68,8 @@ pub fn cue_text(doc : Document, character : String) -> String {
         "\n")[:],
       )
     }
-    for direction in cue.directions {
-      out.write_stringview((direction + "\n")[:])
-    }
-    for text in cue.dialogue {
-      out.write_stringview((plain_text(text) + "\n")[:])
+    for part in cue.parts {
+      out.write_stringview((plain_text(part.text) + "\n")[:])
     }
   }
   out.to_string()

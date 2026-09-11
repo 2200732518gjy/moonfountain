@@ -27,6 +27,13 @@ fn is_character(text : String) -> Bool {
 }
 
 ///|
+pub(all) struct SpeechPart {
+  text : String
+  direction : Bool
+  line : Int
+} derive(Eq, Debug, ToJson)
+
+///|
 pub(all) struct Turn {
   character : String
   extension : String
@@ -34,6 +41,7 @@ pub(all) struct Turn {
   end_line : Int
   dialogue : Array[String]
   directions : Array[String]
+  parts : Array[SpeechPart]
   dual : Bool
 } derive(Eq, Debug, ToJson)
 
@@ -50,6 +58,7 @@ pub fn turns(doc : Document) -> Array[Turn] {
     }
     let dialogue : Array[String] = []
     let directions : Array[String] = []
+    let parts : Array[SpeechPart] = []
     let mut end_line = e.line
     let mut j = i + 1
     while j < doc.elements.length() {
@@ -61,6 +70,11 @@ pub fn turns(doc : Document) -> Array[Turn] {
       } else {
         break
       }
+      parts.push({
+        text: next.text,
+        direction: next.kind == Parenthetical,
+        line: next.line,
+      })
       end_line = next.line
       j += 1
     }
@@ -71,6 +85,7 @@ pub fn turns(doc : Document) -> Array[Turn] {
       end_line,
       dialogue,
       directions,
+      parts,
       dual: e.dual,
     })
     i = j
