@@ -9,6 +9,8 @@ fn mask_annotations(
   let diagnostics : Array[Diagnostic] = []
   let mut i = 0
   let mut line = 1
+  let mut scan_work = 0
+  let mut exhausted = false
   while i < source.length() {
     let is_note = i + 1 < source.length() &&
       source[i] == '[' &&
@@ -18,12 +20,22 @@ fn mask_annotations(
       source[i + 1] == '*'
     // Backslash escapes the opener; backslash itself remains in source text.
     let escaped = i > 0 && source[i - 1] == '\\'
-    if (is_note || is_boneyard) && !escaped {
+    if (is_note || is_boneyard) && !escaped && !exhausted {
       let close = if is_note { "]]" } else { "*/" }
       let mut j = i + 2
       let mut found = -1
       let mut saw_newline = false
       while j + 1 < source.length() {
+        scan_work += 1
+        if scan_work > source.length() * 4 + 16 {
+          exhausted = true
+          diagnostics.push({
+            code: "FNT004",
+            line,
+            message: "Annotation search budget exhausted; remaining annotation text stays visible",
+          })
+          break
+        }
         if source[j] == close[0] && source[j + 1] == close[1] {
           found = j + 2
           break

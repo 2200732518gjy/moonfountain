@@ -28,6 +28,13 @@ pub fn command(
     return { status: 2, stdout: "", stderr: usage() }
   }
   let doc = parse(source)
+  if doc.diagnostics.any(fn(d) { d.code == "FNT900" }) {
+    return {
+      status: 2,
+      stdout: "",
+      stderr: doc.diagnostics.map(fn(d) { d.format() }).join("\n") + "\n",
+    }
+  }
   let stdout = match mode {
     "json" => report_json(doc).stringify() + "\n"
     "json-source" => report_json(doc, include_source=true).stringify() + "\n"

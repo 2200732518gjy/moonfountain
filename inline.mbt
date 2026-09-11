@@ -9,6 +9,9 @@ pub(all) struct Inline {
 ///|
 /// Fountain inline emphasis. At depth 16 further markup stays literal.
 pub fn inline_text(text : String) -> Array[Inline] {
+  if text.length() > 8192 {
+    return [{ text, bold: false, italic: false, underline: false }]
+  }
   inline_scan(text, false, false, false, 0)
 }
 

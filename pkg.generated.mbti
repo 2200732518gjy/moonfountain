@@ -30,6 +30,8 @@ pub fn lint(Document) -> Array[Diagnostic]
 
 pub fn parse(String) -> Document
 
+pub fn parse_with_limits(String, Limits) -> Document
+
 pub fn plain_text(String) -> String
 
 pub fn render_html(Document, outline? : Bool) -> String
@@ -139,6 +141,13 @@ pub(all) enum Kind {
   TitleField
 } derive(Eq, ToJson, @debug.Debug)
 pub fn Kind::label(Self) -> String
+
+pub(all) struct Limits {
+  max_units : Int
+  max_lines : Int
+  max_line_units : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Limits::default() -> Self
 
 pub(all) struct Scene {
   ordinal : Int

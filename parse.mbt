@@ -1,6 +1,6 @@
 ///|
 /// Parse a bounded Fountain block grammar. Original input is always retained.
-pub fn parse(source : String) -> Document {
+fn parse_unchecked(source : String) -> Document {
   let (visible, annotations, diagnostics) = mask_annotations(source)
   let lines = source_lines(visible)
   let elements : Array[Element] = []
