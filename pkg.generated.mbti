@@ -8,7 +8,11 @@ import {
 // Values
 pub fn dual_pairs(Document) -> Array[DualPair]
 
+pub fn inline_text(String) -> Array[Inline]
+
 pub fn parse(String) -> Document
+
+pub fn plain_text(String) -> String
 
 pub fn source_lines(String) -> Array[SourceLine]
 
@@ -46,6 +50,13 @@ pub(all) struct Element {
   detail : String
   level : Int
   dual : Bool
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Inline {
+  text : String
+  bold : Bool
+  italic : Bool
+  underline : Bool
 } derive(Eq, ToJson, @debug.Debug)
 
 pub(all) enum Kind {
