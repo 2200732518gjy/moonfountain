@@ -34,7 +34,11 @@ node _build/js/release/build/cmd/moonfountain/moonfountain.js cues examples/last
 moon add 2200732518gjy/moonfountain@0.1.0
 ```
 
-包页面：https://mooncakes.io/docs/2200732518gjy/moonfountain 。公开源码及四目标 CI 证据见下文。
+[MoonCakes 包与 API 文档](https://mooncakes.io/docs/2200732518gjy/moonfountain) ·
+[GitHub Release v0.1.0](https://github.com/2200732518gjy/moonfountain/releases/tag/v0.1.0)
+
+已在独立项目中从注册表下载 `0.1.0`，并在 wasm-gc / JS 运行排练示例及断言。
+`moon add` 安装的是库依赖，不会安装全局 `moonfountain` 命令；CLI 请按上面的源码步骤运行。
 
 ## 核心能力
 
@@ -70,8 +74,16 @@ moonfountain <json|json-source|html|scenes|cast|lint|cues> FILE|- [CHARACTER]
 
 ## MoonBit API
 
-项目内部包可导入 `"2200732518gjy/moonfountain" @fountain`，参见
-[可运行示例](examples/rehearsal/main.mbt) 与其 `moon.pkg`。
+外部项目先在自己的项目根目录执行上述 `moon add` 命令，再在使用该库的包的
+`moon.pkg` 中添加导入（已有 `import` 块时合并进去）：
+
+```moonbit
+import {
+  "2200732518gjy/moonfountain" @fountain,
+}
+```
+
+在函数或测试中调用 API，完整程序参见 [可运行示例](examples/rehearsal/main.mbt)：
 
 ```moonbit
 let doc = @fountain.parse("INT. BOOTH - NIGHT\n\nADA\nReady?\n")
@@ -96,8 +108,9 @@ python scripts/verify.py --native-check-only
 
 本地验证：46 项单元测试分别在 wasm-gc / wasm / JS 通过，25 个真实 CLI 用例通过；
 四目标严格检查通过。native 未在 Windows 本机执行，但已在 Ubuntu CI 中完成构建、
-46 项测试与示例运行。首个通过的 [四目标 CI 运行](https://github.com/2200732518gjy/moonfountain/actions/runs/34613640264)
-对应提交 `5ef0b00`；后续运行可在仓库 Actions 页面核对。
+46 项测试与示例运行。发布版本 `v0.1.0` 对应提交 `cf06280`，
+[该标签的四目标 CI](https://github.com/2200732518gjy/moonfountain/actions/runs/34614360812) 已通过。
+后续文档更新不移动发布标签；最新运行可在 [Actions](https://github.com/2200732518gjy/moonfountain/actions) 页面核对。
 [CI 合约](docs/CI.md) 说明命令、工具链、校验和与不可混淆的证据边界。
 
 ## 支持边界与安全
@@ -119,4 +132,5 @@ UTF-8 字节。预算可收紧不可提高。原文抽取、未闭合注释和�
 
 查重使用 MoonCakes 关键词 API 和相邻 GitHub 项目，没有在已检查范围内发现直接
 重合的成熟实现；API 结果上限及索引覆盖有限，不能证明绝对不存在。检索不等于发布。
-参赛者个人申报材料不存入仓库。参与者另行明确授权后，已核验 MoonCakes 身份并发布 0.1.0；发布记录见 docs/RELEASE.md。
+参赛者个人申报材料不存入仓库。参与者另行明确授权后，已核验 MoonCakes 身份并发布 0.1.0；发布记录见 [RELEASE](docs/RELEASE.md)。
+注册表内 `0.1.0` 的 README 是发布时的快照；此仓库 README 包含发布后的安装验证记录。
