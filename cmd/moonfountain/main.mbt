@@ -1,4 +1,5 @@
 // Only host I/O lives in JavaScript; parsing/reporting/dispatch are MoonBit.
+
 ///|
 extern "js" fn read_input(path : String) -> String =
   #| (path) => { try {

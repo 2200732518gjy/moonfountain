@@ -18,6 +18,10 @@ pub fn dual_pairs(Document) -> Array[DualPair]
 
 pub fn escape_html(String) -> String
 
+pub fn extract_lines(Document, Int, Int) -> String?
+
+pub fn extract_scene(Document, Int) -> String?
+
 pub fn inline_html(String) -> String
 
 pub fn inline_text(String) -> Array[Inline]
@@ -38,9 +42,13 @@ pub fn scene_text(Document) -> String
 
 pub fn scenes(Document) -> Array[Scene]
 
+pub fn scenes_for_role(Document, String) -> Array[Scene]
+
 pub fn source_lines(String) -> Array[SourceLine]
 
 pub fn title_values(Document, String) -> Array[String]
+
+pub fn turn_source(Document, Int) -> String?
 
 pub fn turns(Document) -> Array[Turn]
 
