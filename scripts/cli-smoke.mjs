@@ -1,0 +1,70 @@
+// No dependencies. Real compiled CLI subprocesses, not a second parser.
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { readFileSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { resolve, join } from 'node:path';
+const binary = resolve(process.argv[2] ?? '_build/js/release/build/cmd/moonfountain/moonfountain.js');
+const fixture = resolve('examples/last-train.fountain');
+let cases = 0;
+function run(args, input, status = 0) {
+  const r = spawnSync(process.execPath, [binary, ...args], { input, encoding: 'utf8', timeout: 15000, maxBuffer: 8 * 1024 * 1024 });
+  assert.ifError(r.error); assert.equal(r.signal, null);
+  assert.equal(r.status, status, `${args}: ${r.stderr}`);
+  if (status === 2) { assert.equal(r.stdout, ''); assert.ok(r.stderr.length > 0); }
+  else assert.equal(r.stderr, '');
+  cases++;
+  return r.stdout;
+}
+assert.match(run(['--help']), /Usage:/);
+const source = readFileSync(fixture, 'utf8');
+const reportText = run(['json', fixture]);
+const report = JSON.parse(reportText);
+assert.equal(report.schema_version, 1);
+assert.equal(report.offset_unit, 'utf16');
+assert.equal(report.scenes.length, 2);
+assert.deepEqual(report.cast.map(x => x.name), ['ADA', '林']);
+assert.equal(report.turns.length, 5);
+assert.deepEqual(report.diagnostics, []);
+assert.equal(report.annotation_count, 2);
+assert.equal(report.source, null); assert.equal(report.annotations, null);
+assert.ok(!reportText.includes('PRIVATE_DEMO'));
+assert.deepEqual(JSON.parse(run(['json', '-'], source)), report);
+const raw = JSON.parse(run(['json-source', '-'], source));
+assert.equal(raw.source, source); assert.equal(raw.annotations.length, 2);
+for (const a of raw.annotations) assert.ok(source.slice(a.start,a.end).includes('PRIVATE_DEMO'));
+for (const scene of raw.scenes) assert.ok(source.slice(scene.start, scene.end).startsWith(scene.heading));
+const html = run(['html', fixture]);
+assert.match(html, /<strong>silent<\/strong>/); assert.ok(!html.includes('PRIVATE_DEMO'));
+const malicious = run(['html', '-'], 'INT. ROOM - DAY\n\n!<script>alert("x")</script> & <img src=x>\n');
+assert.ok(!malicious.includes('<script>')); assert.ok(!malicious.includes('<img'));
+assert.match(malicious, /&lt;script&gt;/);
+assert.match(run(['scenes', fixture]), /spoken lines/);
+assert.equal(JSON.parse(run(['cast', fixture]))[0].turns, 2);
+assert.equal(run(['lint', fixture]).trim(), '');
+const cues = run(['cues', fixture, 'ADA']);
+assert.ok(cues.indexOf('The platform') < cues.indexOf('(listens)'));
+assert.ok(cues.indexOf('(listens)') < cues.indexOf('No. Someone'));
+assert.match(cues, /SIMULTANEOUS/);
+const role = run(['cues', fixture, '林']);
+assert.ok(!role.split('Scene 2,')[1].includes('Context'));
+assert.match(run(['lint', '-'], '[[unclosed', 1), /FNT001/);
+run(['cues', fixture, 'Nobody'], undefined, 2);
+run([], undefined, 2); run(['json'], undefined, 2);
+run(['wat', fixture], undefined, 2); run(['json', fixture, 'extra'], undefined, 2);
+run(['cues', fixture], undefined, 2);
+run(['json', '-'], Buffer.from([0xc3,0x28]), 2);
+run(['json', '-'], 'x'.repeat(8193), 2);
+run(['json', '-'], 'x\n'.repeat(20001), 2);
+run(['json', '-'], Buffer.alloc(4194305, 120), 2);
+const dir = mkdtempSync(join(tmpdir(), 'moonfountain-smoke-'));
+try {
+  const file = join(dir, '带 空格.fountain'); writeFileSync(file, source);
+  assert.deepEqual(JSON.parse(run(['json', file])), report);
+  run(['json', join(dir, 'absent.fountain')], undefined, 2);
+} finally { rmSync(dir, { recursive: true, force: true }); }
+const bom = JSON.parse(run(['json-source', '-'], '\ufeffINT. X - DAY\r\n\r\n!emoji 😀\r\n'));
+assert.ok(bom.source.startsWith('\ufeff'));
+assert.equal(bom.scenes[0].start, 0);
+assert.equal(bom.scenes[0].end, bom.source.length);
+console.log(`CLI smoke: ${cases} subprocess cases passed`);
