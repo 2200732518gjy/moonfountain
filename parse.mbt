@@ -32,6 +32,8 @@ pub fn parse(source : String) -> Document {
       }
       let (body, number) = scene_number(heading)
       elements.push(element(line, SceneHeading, body, detail=number))
+    } else if special_block(line, text, before, after) is Some(block) {
+      elements.push(block)
     } else if before && !after && is_character(text) {
       let cue = if text.has_prefix("@") {
         stripped(text[1:].to_owned())

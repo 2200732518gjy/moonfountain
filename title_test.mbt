@@ -11,6 +11,6 @@ test "title fields continuations duplicates and extension keys" {
 
 ///|
 test "ordinary colon action is not a title page" {
-  assert_eq(parse("CUT TO:").elements[0].kind, Action)
+  assert_eq(parse("CUT TO:").elements[0].kind, Transition)
   assert_eq(parse("Remember: bring keys").elements[0].kind, Action)
 }
