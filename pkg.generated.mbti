@@ -8,6 +8,10 @@ import {
 // Values
 pub fn cast(Document) -> Array[CastMember]
 
+pub fn cue_sheet(Document, String) -> Array[Cue]
+
+pub fn cue_text(Document, String) -> String
+
 pub fn dual_pairs(Document) -> Array[DualPair]
 
 pub fn inline_text(String) -> Array[Inline]
@@ -38,6 +42,17 @@ pub(all) struct CastMember {
   turns : Int
   spoken_lines : Int
   words : Int
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Cue {
+  scene : Int
+  line : Int
+  character : String
+  preceding_character : String
+  preceding_text : String
+  simultaneous : Bool
+  dialogue : Array[String]
+  directions : Array[String]
 } derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct Diagnostic {
