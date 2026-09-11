@@ -11,3 +11,5 @@ keywords = [ "fountain", "screenplay", "rehearsal", "parser" ]
 preferred_target = "wasm-gc"
 
 description = "Source-mapped Fountain screenplay parsing and rehearsal breakdowns"
+
+repository = "https://github.com/2200732518gjy/moonfountain"

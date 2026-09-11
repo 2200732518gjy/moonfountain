@@ -12,7 +12,9 @@ PDF typesetter, subtitle processor, or production-management system.
 需要 MoonBit 工具链和 Node.js 22+；完整验证另需 Python 3.8+，native 运行需 C 编译器。
 本地复验工具链：moon 0.1.20260904 / moonc 0.10.12 (2026-09-07)。
 安装工具链参考 [MoonBit 官方安装文档](https://www.moonbitlang.com/download/)。
-在本仓库根目录执行（PowerShell / bash 均可）：
+公开源码仓库：[2200732518gjy/moonfountain](https://github.com/2200732518gjy/moonfountain)。
+先 `git clone https://github.com/2200732518gjy/moonfountain.git`，再
+`cd moonfountain`。在仓库根目录执行（PowerShell / bash 均可）：
 
 ```sh
 moon test --target wasm-gc
@@ -27,8 +29,7 @@ node _build/js/release/build/cmd/moonfountain/moonfountain.js cues examples/last
 第二场不错误沿用上一场的触发台词。嵌入式示例包含断言，跨目标复现相同语义。
 
 **发布状态：本地 0.1.0 候选版本，尚未发布 MoonCakes。** 因此不提供假定可用的
-`moon add` 命令。当前安装/评估方式是取得本仓库源码后运行上述命令；公开仓库、
-托管 CI 和 Release 必须在授权发布后单独核验，不使用虚假徽章。
+`moon add` 命令。当前安装/评估方式是取得本仓库源码后运行上述命令；公开仓库已获授权创建；托管 CI 和 Release 尚待推送后单独核验，不使用虚假徽章。
 
 ## 核心能力
 
