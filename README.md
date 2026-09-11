@@ -28,8 +28,13 @@ node _build/js/release/build/cmd/moonfountain/moonfountain.js cues examples/last
 `scenes` 应输出两场：SIGNAL ROOM / PLATFORM；`cues ... 林` 输出三次出场，
 第二场不错误沿用上一场的触发台词。嵌入式示例包含断言，跨目标复现相同语义。
 
-**版本：0.1.0，公开源码；尚未发布 MoonCakes。** 因此不提供假定可用的
-`moon add` 命令。当前安装/评估方式是取得本仓库源码后运行上述命令；公开源码已经推送，四目标托管 CI 已通过，见下方可核验的运行证据。
+**版本：0.1.0，已发布 MoonCakes（2026-09-11）。**
+
+```sh
+moon add 2200732518gjy/moonfountain@0.1.0
+```
+
+包页面：https://mooncakes.io/docs/2200732518gjy/moonfountain 。公开源码及四目标 CI 证据见下文。
 
 ## 核心能力
 
@@ -114,4 +119,4 @@ UTF-8 字节。预算可收紧不可提高。原文抽取、未闭合注释和�
 
 查重使用 MoonCakes 关键词 API 和相邻 GitHub 项目，没有在已检查范围内发现直接
 重合的成熟实现；API 结果上限及索引覆盖有限，不能证明绝对不存在。检索不等于发布。
-参赛者个人申报材料不存入仓库。MoonCakes 发布是参与者另行操作的验收步骤。
+参赛者个人申报材料不存入仓库。参与者另行明确授权后，已核验 MoonCakes 身份并发布 0.1.0；发布记录见 docs/RELEASE.md。

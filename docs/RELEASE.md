@@ -18,4 +18,15 @@
 
 The initial public four-target CI passed on 2026-09-11; see CI.md.
 For each release, verify the exact final tag commit and its CI, not only a prior run.
-Personal application data and MoonCakes publication are separate remaining gates.
+Personal application data stays outside this repository. MoonCakes publication requires separate participant authorization (received for the record below).
+
+## MoonCakes publication record — 2026-09-11
+
+- Separately authorized by the participant; both GitHub and MoonCakes identity verified as `2200732518gjy`.
+- Published `2200732518gjy/moonfountain@0.1.0` from release commit `cf06280141dc4c9ca1157849185a1b2e575f3864`.
+- Official `moon publish` checked both source and extracted archive; server returned HTTP 200.
+- Registry manifest reports version 0.1.0, not yanked, build_status success.
+- Registry creation time: 2026-09-11T15:28:50.990110Z.
+- Archive SHA-256: `b6410047cfa5d6ebcbd7991c81fa17934058fc3d535725d928bf2a7c57c1251b`.
+- Shared MoonBit credentials remained byte-for-byte unchanged. No global Git identity or active GitHub account was switched.
+- The v0.1.0 tag remains immutable; this publication record is a later documentation-only update.
