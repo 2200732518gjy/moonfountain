@@ -10,7 +10,7 @@ pub(all) struct Inline {
 /// Fountain inline emphasis. At depth 16 further markup stays literal.
 pub fn inline_text(text : String) -> Array[Inline] {
   if text.length() > 8192 {
-    return [{ text, bold: false, italic: false, underline: false }]
+    return [{ text, bold: false, italic: false, underline: false, }]
   }
   inline_scan(text, false, false, false, 0)
 }
@@ -36,7 +36,7 @@ fn inline_scan(
 ) -> Array[Inline] {
   let out : Array[Inline] = []
   if depth >= 16 {
-    return [{ text, bold, italic, underline }]
+    return [{ text, bold, italic, underline, }]
   }
   let mut i = 0
   let mut start = 0
@@ -45,9 +45,9 @@ fn inline_scan(
       i + 1 < text.length() &&
       (text[i + 1] == '*' || text[i + 1] == '_' || text[i + 1] == '\\') {
       if start < i {
-        out.push({ text: text[start:i].to_owned(), bold, italic, underline })
+        out.push({ text: text[start:i].to_owned(), bold, italic, underline, })
       }
-      out.push({ text: text[i + 1:i + 2].to_owned(), bold, italic, underline })
+      out.push({ text: text[i + 1:i + 2].to_owned(), bold, italic, underline, })
       i += 2
       start = i
       continue
@@ -88,7 +88,7 @@ fn inline_scan(
       }
       if close >= 0 {
         if start < i {
-          out.push({ text: text[start:i].to_owned(), bold, italic, underline })
+          out.push({ text: text[start:i].to_owned(), bold, italic, underline, })
         }
         let nested = inline_scan(
           text[i + width:close].to_owned(),
@@ -110,7 +110,7 @@ fn inline_scan(
     }
   }
   if start < text.length() {
-    out.push({ text: text[start:].to_owned(), bold, italic, underline })
+    out.push({ text: text[start:].to_owned(), bold, italic, underline, })
   }
   out
 }

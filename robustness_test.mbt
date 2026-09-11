@@ -1,6 +1,6 @@
 ///|
 test "resource refusal is explicit and never partial" {
-  let limits = Limits::{ max_units: 20, max_lines: 3, max_line_units: 8 }
+  let limits = Limits::{ max_units: 20, max_lines: 3, max_line_units: 8, }
   let d = parse_with_limits("123456789", limits)
   assert_eq(d.elements.length(), 0)
   assert_eq(d.source, "123456789")
@@ -10,7 +10,7 @@ test "resource refusal is explicit and never partial" {
     "FNT900",
   )
   assert_eq(
-    parse_with_limits("x", { ..limits, max_units: 0 }).diagnostics[0].code,
+    parse_with_limits("x", { ..limits, max_units: 0, }).diagnostics[0].code,
     "FNT900",
   )
 }

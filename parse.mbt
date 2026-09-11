@@ -66,7 +66,7 @@ fn parse_unchecked(source : String) -> Document {
       elements.push(element(line, Action, line.content()))
     }
   }
-  { source, elements, diagnostics, annotations }
+  { source, elements, diagnostics, annotations, }
 }
 
 ///|

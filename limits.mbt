@@ -7,7 +7,7 @@ pub(all) struct Limits {
 
 ///|
 pub fn Limits::default() -> Limits {
-  { max_units: 262144, max_lines: 20000, max_line_units: 8192 }
+  { max_units: 262144, max_lines: 20000, max_line_units: 8192, }
 }
 
 ///|
@@ -50,7 +50,7 @@ pub fn parse_with_limits(source : String, limits : Limits) -> Document {
       source,
       elements: [],
       annotations: [],
-      diagnostics: [{ code: "FNT900", line, message: reason }],
+      diagnostics: [{ code: "FNT900", line, message: reason, }],
     }
   }
   parse_unchecked(source)

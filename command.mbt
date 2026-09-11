@@ -18,14 +18,14 @@ pub fn command(
   argument? : String = "",
 ) -> CommandResult {
   if mode == "help" {
-    return { status: 0, stdout: usage(), stderr: "" }
+    return { status: 0, stdout: usage(), stderr: "", }
   }
   if !["json", "json-source", "html", "scenes", "cast", "lint", "cues"].contains(
       mode,
     ) ||
     (mode == "cues" && argument == "") ||
     (mode != "cues" && argument != "") {
-    return { status: 2, stdout: "", stderr: usage() }
+    return { status: 2, stdout: "", stderr: usage(), }
   }
   let doc = parse(source)
   if doc.diagnostics.any(fn(d) { d.code == "FNT900" }) {

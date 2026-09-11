@@ -130,7 +130,7 @@ pub fn dual_pairs(doc : Document) -> Array[DualPair] {
   let out : Array[DualPair] = []
   for i = 1; i < ts.length(); i = i + 1 {
     if ts[i].dual {
-      out.push({ left: ts[i - 1], right: ts[i] })
+      out.push({ left: ts[i - 1], right: ts[i], })
     }
   }
   out
