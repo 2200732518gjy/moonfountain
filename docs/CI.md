@@ -14,7 +14,7 @@ are the four-target deliverables. No browser/file permissions are assumed by cor
 GitHub Actions uses independent Ubuntu 24.04 jobs with a C compiler for native,
 read-only token permissions, no persisted checkout credential, and no cache that
 could hide a missing dependency. Jobs cover push, pull request and manual runs.
-Checkout v4 and setup-node v4 commit references were resolved through GitHub's
+Checkout v6 and setup-node v6 commit references were resolved through GitHub's
 public API on 2026-09-11. The installer is downloaded from the official MoonBit
 host and verified against a reviewed SHA-256; its body is not vendored here.
 This verifies the installer only, not cryptographic provenance of compiler archives.
@@ -31,3 +31,8 @@ Every target passed 46 tests and its executable example; native was genuinely
 compiled and executed on Ubuntu, not skipped. JS also passed 25 CLI subprocesses.
 CI used moonc v0.10.12+1634b282e (2026-09-07). Later commits must independently
 pass their own run before tagging; a historical green run is not proof of new code.
+
+The first runs exposed a hosted Node 20 action-runtime deprecation warning.
+The workflow now pins reviewed v6 action commits declaring node24; Node package
+manager caching is explicitly disabled. This is an action-host runtime update,
+not a change to the MoonBit parser or its Node CLI runtime.
